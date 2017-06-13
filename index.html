@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+    <div  ng-controller="myCtrl">
+       <input type="text" ng-keypress="getkeys($event)" ng-model="ftxt">
+    </div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $scope.getkeys = function (e) {
+			e.preventDefault();
+            var text = 
+                (e.keyCode == 37 ? 'left' : '') +
+                (e.keyCode == 38 ? 'up' : '') +
+                (e.keyCode == 39 ? 'right' : '') +
+                (e.keyCode == 40 ? 'down' : '') +
+                (e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40  ? e.key.toLowerCase() : '') +
+                (e.shiftKey ? ' shift' : '') +
+                (e.ctrlKey ? ' ctrl' : '') +
+                (e.altKey ? ' alt' : '') +
+                (e.metaKey ? ' metaKey' : '') +
+                (e.repeat ? ' (repeat)' : '');
+            var res = text.split(" ").reverse().toString().split(',').join('+');
+            $scope.ftxt = res;
+        }
+    });
+</script>
+
+</body>
+</html>
